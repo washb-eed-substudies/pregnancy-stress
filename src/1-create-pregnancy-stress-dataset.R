@@ -37,6 +37,7 @@ d <- d %>%
     t3_gcr_cpg12=logit(t3_gcr_cpg12/100))
 #Clean inf values
 d <- do.call(data.frame,lapply(d, function(x) replace(x, is.infinite(x),NA)))
+
 #---------------------------------------------------------------------------------------------
 # calc combined iso variable
 #---------------------------------------------------------------------------------------------
@@ -207,17 +208,24 @@ d_sum <- read.csv(paste0(dropboxDir,"Data/Cleaned/Audrie/maternal inflammation s
 d <- left_join(d, d_sum, by="dataid")
 
 
+
 ############# Check covariate missingness ###################
 exp <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf",
-         "ln_preg_cort", "logCRP", "logAGP", "ifng_mom_t0", "sumscore_t0_mom_Z", "ln_preg_estri")
-out <- c("TS_t2_Z", "TS_t3_Z", "delta_TS_Z")
+         "ln_preg_cort", "logCRP", "logAGP","ifng_mom_t0", "sumscore_t0_mom_Z", "ln_preg_estri")
+
+out <- c("t2_f2_8ip",  "t2_f2_23d", "t2_f2_VI", "t2_f2_12i", "t2_iso_pca", "t3_cort_slope", "t3_residual_cort", "t3_cort_z01", "t3_cort_z03",
+         "t3_saa_slope", "t3_residual_saa", "t3_saa_z01", "t3_saa_z02",
+         "t3_map", "t3_hr_mean",
+         "t3_gcr_mean", "t3_gcr_cpg12") 
 
 Wvars<-c("sex","birthord", "momage","momheight","momedu", 
          "hfiacat", "Nlt18","Ncomp", "watmin", "walls", "floor", "roof", "HHwealth",
-         "tr", "life_viol_any_t3", "viol_any_preg", "ageday_ht2", "ageday_ht3", 
-         "month_blood_t0", "month_ht2", "month_ht3") %>% unique()
+         "tr", "life_viol_any_t3", "viol_any_preg", "ageday_ut2", "ageday_t3_vital", "ageday_t3_oragene", "ageday_t3_salimetrics",  
+         "month_blood_t0", "month_ut2", "month_vt3", "month_ot3", "month_lt3" ) %>% unique()
 
+#Changed times from _ht2/3 to _at2/3 -> whats diff?
 W <- d %>% select(all_of(Wvars))  
+
 
 miss <- data.frame(name = names(W), missing = colSums(is.na(W))/nrow(W), row.names = c(1:ncol(W)))
 for (i in 1:nrow(miss)) {
@@ -259,125 +267,6 @@ for(outcome in out){
   print(miss_sub)
 }
 
-
-
-#####################################################
-
-
-
-## check covariate missingness
-Wvars<-c("sex","birthord", "momage","momheight","momedu", 
-         "hfiacat", "Nlt18","Ncomp", "watmin", "walls", "floor", "roof", "HHwealth",
-         "tr","cesd_sum_t2", "diar7d_t2", "tr", "life_viol_any_t3") %>% unique()
-Wvars2_anthro<-c("ageday_at2", "month_at2")
-Wvars3_anthro<-c("ageday_at3", "month_at3", "diar7d_t3", "cesd_sum_ee_t3", "pss_sum_mom_t3", "life_viol_any_t3")  
-Wvars2_F2<-c("ageday_ut2", "month_ut2") 
-Wvars3_vital<-c("laz_t2", "waz_t2", "ageday_t3_vital", "month_vt3", "cesd_sum_ee_t3", "pss_sum_mom_t3", "diar7d_t3", "life_viol_any_t3") 
-Wvars3_salimetrics<-c("laz_t2", "waz_t2", "ageday_t3_salimetrics", "month_lt3", "cesd_sum_ee_t3", "pss_sum_mom_t3", "diar7d_t3", "life_viol_any_t3") 
-Wvars3_oragene<-c("laz_t2", "waz_t2", "ageday_t3_oragene", "month_ot3", "cesd_sum_ee_t3", "pss_sum_mom_t3", "diar7d_t3", "life_viol_any_t3") 
-generate_miss_tbl <- function(Wvars, d){
-  W <- d %>% select(all_of(Wvars))  
-  miss <- data.frame(name = names(W), missing = colSums(is.na(W))/nrow(W), row.names = c(1:ncol(W)))
-  for (i in 1:nrow(miss)) {
-    miss$class[i] <- class(W[,which(colnames(W) == miss[i, 1])])
-  }
-  miss 
-}
-generate_miss_tbl(Wvars, d)
-# add missingness category to IPV covariate
-d$life_viol_any_t3<-as.factor(d$life_viol_any_t3)
-summary(d$life_viol_any_t3)
-d$life_viol_any_t3<-addNA(d$life_viol_any_t3)
-levels(d$life_viol_any_t3)[length(levels(d$life_viol_any_t3))]<-"Missing"
-summary(d$life_viol_any_t3)
-# add missingness category to diarrhea covariates
-summary(d$diar7d_t2)
-d$diar7d_t2<-as.factor(d$diar7d_t2)
-d$diar7d_t2<-addNA(d$diar7d_t2)
-levels(d$diar7d_t2)[length(levels(d$diar7d_t2))]<-"Missing"
-summary(d$diar7d_t2)
-generate_miss_tbl(Wvars, d)
-# check with time-varying covariates
-W2_F2.W2_anthro <- c(Wvars, Wvars2_F2 ,Wvars2_anthro, "laz_t1", "waz_t1") %>% unique(.)
-W2_F2.W3_anthro <- c(Wvars, Wvars2_F2 ,Wvars3_anthro, 
-                     "laz_t2", "waz_t2") %>% unique(.)
-W2_F2.W23_anthro <- c(Wvars, Wvars2_F2, Wvars2_anthro, Wvars3_anthro)
-W3_vital.W3_anthro <- c(Wvars, Wvars3_vital, Wvars3_anthro) %>% unique(.)
-W3_salimetrics.W3_anthro <- c(Wvars, Wvars3_salimetrics, Wvars3_anthro) %>% unique(.)
-W3_oragene.W3_anthro <- c(Wvars, Wvars3_oragene, Wvars3_anthro) %>% unique(.)
-pick_covariates <- function(i, j){
-  # i is exposure as string
-  # j is outcome as string
-  # choose correct/build correct adjustment set based on exposure and outcome
-  if(grepl("t2_", i)){
-    if(grepl("_t2_t3", j)){Wset = W2_F2.W23_anthro}
-    else if(grepl("_t2", j)){Wset = W2_F2.W2_anthro}
-    else if(grepl("_t3", j)){Wset = W2_F2.W3_anthro}}
-  else if(grepl("saa|cort", i)){
-    if(grepl("residual", i)){Wset = W3_salimetrics.W3_anthro}
-    else{Wset = c(W3_salimetrics.W3_anthro, "t3_col_time_z01_cont")}}
-  else if(i %in% c("t3_map", "t3_hr_mean")){Wset = W3_vital.W3_anthro}
-  else{Wset = W3_oragene.W3_anthro}
-  if(j=="hcz_t3"){Wset=c(Wset, "hcz_t2")}
-  if(j=="hcz_t2"){Wset=c(Wset, "hcz_t1")}
-  return(Wset)
-}
-Xvars <- c("t2_f2_8ip", "t2_f2_23d", "t2_f2_VI", "t2_f2_12i", "t2_iso_pca")            
-Yvars <- c("laz_t2", "waz_t2", "whz_t2" ,"hcz_t2", 
-           "len_velocity_t2_t3", "wei_velocity_t2_t3", "hc_velocity_t2_t3",
-           "laz_t3", "waz_t3", "whz_t3", "hcz_t3",
-           "delta_laz_t2_t3", "delta_waz_t2_t3", "delta_whz_t2_t3", "delta_hcz_t2_t3")
-for (i in Xvars){
-  for (j in Yvars){
-    print(i)
-    print(j)
-    Wvars = pick_covariates(i, j)
-    d_sub <- subset(d, !is.na(d[,i]) & !is.na(d[,j]))
-    print(generate_miss_tbl(Wvars, d_sub))
-  }
-}
-
-Xvars <- c("t3_cort_slope", "t3_residual_cort", "t3_cort_z01", "t3_cort_z03",
-           "t3_saa_slope", "t3_residual_saa", "t3_saa_z01", "t3_saa_z02",
-           "t3_map", "t3_hr_mean",
-           "t3_gcr_mean", "t3_gcr_cpg12")            
-Yvars <- c("laz_t3", "waz_t3", "whz_t3", "hcz_t3")
-
-for (i in Xvars){
-  for (j in Yvars){
-    print(i)
-    print(j)
-    Wvars = pick_covariates(i, j)
-    d_sub <- subset(d, !is.na(d[,i]) & !is.na(d[,j]))
-    print(generate_miss_tbl(Wvars, d_sub))
-  }
-}
-
-# add missingness category to diar7d_t3
-summary(d$diar7d_t3)
-d$diar7d_t3<-as.factor(d$diar7d_t3)
-d$diar7d_t3<-addNA(d$diar7d_t3)
-levels(d$diar7d_t3)[length(levels(d$diar7d_t3))]<-"Missing"
-summary(d$diar7d_t3)
-
-
-# create factor variable with missingness level for growth measurements at year 1 and year 2
-growth.var <- c("laz_t1", "waz_t1", "hcz_t1", "laz_t2", "waz_t2", "hcz_t2")
-for (i in growth.var) {
-  cutpoints <- c(-3, -2, -1, -0)  
-  cuts <- c(min(d[[i]], na.rm = T), cutpoints, max(d[[i]], na.rm = T))
-  new_var <- paste(i, "_cat", sep="")
-  d[[new_var]] <- cut(d[[i]], 
-                          cuts,
-                          right = FALSE,
-                          include.lowest = TRUE)
-  d[[new_var]] <- as.factor(d[[new_var]])
-  d[[new_var]] <- fct_explicit_na(d[[new_var]], "Missing")
-  d[[new_var]] <- factor(d[[new_var]], levels = levels(d[[new_var]]))
-}
-
-# check missingness of categorical growth covariates
-generate_miss_tbl(paste(growth.var, "_cat", sep=""), d)
 
 
 saveRDS(d, paste0(dropboxDir,"Data/Cleaned/Audrie/pregnancy_stress_data.RDS"))
