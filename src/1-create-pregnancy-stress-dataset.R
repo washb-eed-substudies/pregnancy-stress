@@ -213,8 +213,8 @@ d <- left_join(d, d_sum, by="dataid")
 exp <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf",
          "ln_preg_cort", "logCRP", "logAGP","ifng_mom_t0", "sumscore_t0_mom_Z", "ln_preg_estri")
 
-out <- c("t2_f2_8ip",  "t2_f2_23d", "t2_f2_VI", "t2_f2_12i", "t2_iso_pca", "t3_cort_slope", "t3_residual_cort", "t3_cort_z01", "t3_cort_z03",
-         "t3_saa_slope", "t3_residual_saa", "t3_saa_z01", "t3_saa_z02",
+out <- c("t2_f2_8ip",  "t2_f2_23d", "t2_f2_VI", "t2_f2_12i", "t2_iso_pca", "t3_cort_slope", "t3_cort_z01", "t3_cort_z03",
+         "t3_saa_slope", "t3_saa_z01", "t3_saa_z02",
          "t3_map", "t3_hr_mean",
          "t3_gcr_mean", "t3_gcr_cpg12") 
 
