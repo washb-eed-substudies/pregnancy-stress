@@ -223,7 +223,6 @@ Wvars<-c("sex","birthord", "momage","momheight","momedu",
          "tr", "life_viol_any_t3", "viol_any_preg", "ageday_ut2", "ageday_t3_vital", "ageday_t3_oragene", "ageday_t3_salimetrics",  
          "month_blood_t0", "month_ut2", "month_vt3", "month_ot3", "month_lt3" ) %>% unique()
 
-#Changed times from _ht2/3 to _at2/3 -> whats diff?
 W <- d %>% select(all_of(Wvars))  
 
 
