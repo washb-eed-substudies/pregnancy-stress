@@ -10,8 +10,8 @@ d<-readRDS(paste0(dropboxDir, "Data/Cleaned/Audrie/pregnancy_stress_data.RDS"))
 #Maternal cortisol levels during pregnancy are associated with child stress biomarkers at Year 1 and Year 2. 
 Xvars <- c("ln_preg_cort")            
 Yvars <- c("t2_f2_8ip",  "t2_f2_23d", "t2_f2_VI", "t2_f2_12i", "t2_iso_pca", 
-           "t3_cort_slope", "t3_residual_cort", "t3_cort_z01", "t3_cort_z03",
-           "t3_saa_slope", "t3_residual_saa", "t3_saa_z01", "t3_saa_z02",
+           "t3_cort_slope", "t3_cort_z01", "t3_cort_z03",
+           "t3_saa_slope", "t3_saa_z01", "t3_saa_z02",
            "t3_map", "t3_hr_mean",
            "t3_gcr_mean", "t3_gcr_cpg12") 
 
@@ -68,8 +68,8 @@ saveRDS(H1_plot_data, here("figure-data/H1_unadj_spline_data.RDS"))
 
 Xvars <- c("logCRP", "logAGP", "ifng_mom_t0", "sumscore_t0_mom_Z")            
 Yvars <- c("t2_f2_8ip",  "t2_f2_23d", "t2_f2_VI", "t2_f2_12i", "t2_iso_pca", 
-           "t3_cort_slope", "t3_residual_cort", "t3_cort_z01", "t3_cort_z03",
-           "t3_saa_slope", "t3_residual_saa", "t3_saa_z01", "t3_saa_z02",
+           "t3_cort_slope",  "t3_cort_z01", "t3_cort_z03",
+           "t3_saa_slope",  "t3_saa_z01", "t3_saa_z02",
            "t3_map", "t3_hr_mean",
            "t3_gcr_mean", "t3_gcr_cpg12") 
 
@@ -122,8 +122,8 @@ saveRDS(H2_plot_data, here("figure-data/H2_unadj_spline_data.RDS"))
 
 Xvars <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf")            
 Yvars <- c("t2_f2_8ip",  "t2_f2_23d", "t2_f2_VI", "t2_f2_12i", "t2_iso_pca", 
-           "t3_cort_slope", "t3_residual_cort", "t3_cort_z01", "t3_cort_z03",
-           "t3_saa_slope", "t3_residual_saa", "t3_saa_z01", "t3_saa_z02",
+           "t3_cort_slope",  "t3_cort_z01", "t3_cort_z03",
+           "t3_saa_slope",  "t3_saa_z01", "t3_saa_z02",
            "t3_map", "t3_hr_mean",
            "t3_gcr_mean", "t3_gcr_cpg12") 
 
@@ -175,8 +175,8 @@ saveRDS(H3_plot_data, here("figure-data/H3_unadj_spline_data.RDS"))
                                                                                             
 Xvars <- c("ln_preg_estri")            
 Yvars <- c("t2_f2_8ip",  "t2_f2_23d", "t2_f2_VI", "t2_f2_12i", "t2_iso_pca", 
-           "t3_cort_slope", "t3_residual_cort", "t3_cort_z01", "t3_cort_z03",
-           "t3_saa_slope", "t3_residual_saa", "t3_saa_z01", "t3_saa_z02",
+           "t3_cort_slope",  "t3_cort_z01", "t3_cort_z03",
+           "t3_saa_slope",  "t3_saa_z01", "t3_saa_z02",
            "t3_map", "t3_hr_mean",
            "t3_gcr_mean", "t3_gcr_cpg12") 
 
