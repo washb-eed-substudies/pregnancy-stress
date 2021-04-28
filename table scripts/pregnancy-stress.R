@@ -85,7 +85,7 @@ results <- H1
 results_adj <- H1adj
 
 tbl1 <- growth_tbl("Maternal Cortisol", expo_var, out_var, exposure, outcome, H1, H1adj, T)
-tbl1flex <- growth_tbl_flex("Maternal Cortisol", expo_var, out_var, exposure, outcome, H1, H1adj, T)
+tbl1flex <- growth_tbl_flex("Maternal Cortisol", expo_var, out_var, exposure, outcome, H1, H1adj, T, .6, 1.5)
 tbl1supp <- growth_tbl("Maternal Cortisol", expo_var, out_var, exposure, outcome, H1, H1adj)
 tbl1flexsupp <- growth_tbl_flex("Maternal Cortisol", expo_var, out_var, exposure, outcome, H1, H1adj)
 
@@ -105,7 +105,7 @@ results <- H2
 results_adj <- H2adj
 
 tbl2 <- growth_tbl("Maternal Inflammation Biomarkers", expo_var, out_var, exposure, outcome, H2, H2adj, T)
-tbl2flex <- growth_tbl_flex("Maternal Inflammation Biomarkers", expo_var, out_var, exposure, outcome, H2, H2adj, T)
+tbl2flex <- growth_tbl_flex("Maternal Inflammation Biomarkers", expo_var, out_var, exposure, outcome, H2, H2adj, T, 1, 1.5)
 tbl2supp <- growth_tbl("Maternal Inflammation Biomarkers", expo_var, out_var, exposure, outcome, H2, H2adj)
 tbl2flexsupp <- growth_tbl_flex("Maternal Inflammation Biomarkers", expo_var, out_var, exposure, outcome, H2, H2adj)
 
@@ -126,7 +126,7 @@ results <- H3
 results_adj <- H3adj
 
 tbl3 <- growth_tbl("Maternal Nutrition Biomarkers", expo_var, out_var, exposure, outcome, H3, H3adj, T)
-tbl3flex <- growth_tbl_flex("Maternal Nutrition Biomarkers", expo_var, out_var, exposure, outcome, H3, H3adj, T)
+tbl3flex <- growth_tbl_flex("Maternal Nutrition Biomarkers", expo_var, out_var, exposure, outcome, H3, H3adj, T, .8, 1.6)
 tbl3supp <- growth_tbl("Maternal Nutrition Biomarkers", expo_var, out_var, exposure, outcome, H3, H3adj)
 tbl3flexsupp <- growth_tbl_flex("Maternal Nutrition Biomarkers", expo_var, out_var, exposure, outcome, H3, H3adj)
 
@@ -146,7 +146,7 @@ results <- H4
 results_adj <- H4adj
 
 tbl4 <- growth_tbl("Estriol", expo_var, out_var, exposure, outcome, H4, H4adj, T)
-tbl4flex <- growth_tbl_flex("Estriol", expo_var, out_var, exposure, outcome, H4, H4adj, T)
+tbl4flex <- growth_tbl_flex("Estriol", expo_var, out_var, exposure, outcome, H4, H4adj, T, .6, 1.6)
 tbl4supp <- growth_tbl("Estriol", expo_var, out_var, exposure, outcome, H4, H4adj)
 tbl4flexsupp <- growth_tbl_flex("Estriol", expo_var, out_var, exposure, outcome, H4, H4adj)
 
@@ -216,6 +216,7 @@ write.csv(tbl3supp, here('tables/pregnancy-stress-table3-supp.csv'))
 write.csv(tbl4, here('tables/pregnancy-stress-table4.csv'))
 write.csv(tbl4supp, here('tables/pregnancy-stress-table4-supp.csv'))
 
-save_as_docx("Table 1" = tbl1flex, "Table 2" = tbl2flex, "Table 3" = tbl3flex, "Table 4" = tbl4flex,path='~/Desktop/pregnancy-stress/tables/maintables.docx')
+save_as_docx("Table 1" = tbl1flex, "Table 2" = tbl2flex, "Table 3" = tbl3flex, "Table 4" = tbl4flex,
+             path=here('tables/maintables.docx'), pr_section = sect_properties)
 
 save_as_docx("Table S1" = tbl1flexsupp, "Table S2" = tbl2flexsupp, "Table S3" = tbl3flexsupp, "Table S4" = tbl4flexsupp ,path='~/Desktop/pregnancy-stress/tables/supptables.docx')
