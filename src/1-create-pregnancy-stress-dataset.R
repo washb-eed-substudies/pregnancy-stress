@@ -211,7 +211,7 @@ d <- left_join(d, d_sum, by="dataid")
 
 ############# Check covariate missingness ###################
 exp <- c("vitD_nmol_per_L", "logFERR_inf", "logSTFR_inf", "logRBP_inf",
-         "ln_preg_cort", "logCRP", "logAGP","ifng_mom_t0", "sumscore_t0_mom_Z", "ln_preg_estri")
+         "ln_preg_cort", "logCRP", "logAGP", "sumscore_t0_mom_Z", "ln_preg_estri")
 
 out <- c("t2_f2_8ip",  "t2_f2_23d", "t2_f2_VI", "t2_f2_12i", "t2_iso_pca", "t3_cort_slope", "t3_cort_z01", "t3_cort_z03",
          "t3_saa_slope", "t3_saa_z01", "t3_saa_z02",
