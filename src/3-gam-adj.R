@@ -96,7 +96,7 @@ saveRDS(H1_adj_plot_data, paste0(dropboxDir,"results/pregnancy-stress-models/fig
 # Maternal inflammation during pregnancy is associated with child stress biomarkers at Year 1 and Year 2. 
 # change in telomere length
 
-Xvars <- c("logCRP", "logAGP", "sumscore_t0_mom_Z")            
+Xvars <- c("logCRP", "logAGP", "ifng_mom_t0", "sumscore_t0_mom_Z")            
 Yvars <- c("t2_f2_8ip",  "t2_f2_23d", "t2_f2_VI", "t2_f2_12i", "t2_iso_pca", 
            "t3_cort_slope",  "t3_cort_z01", "t3_cort_z03",
            "t3_saa_slope",  "t3_saa_z01", "t3_saa_z02",
