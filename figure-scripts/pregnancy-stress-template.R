@@ -96,7 +96,7 @@ p +
   annotate('text', x= 10, y=19,label= 'Subsample Enrollment', size=4) +
   
   
-  geom_rect(xmin = 36, xmax=64, ymin=4, ymax=12, color='black',
+  geom_rect(xmin = 32, xmax=68, ymin=4, ymax=12, color='black',
             fill='white', size=0.25) +
   annotate('text', x= 50, y=10.2,label= "paste(bold('Year 1'))", parse=TRUE, size=3) + 
   annotate('text', x= 50, y=9.6,label= paste("\n", 756-y1_n, ' missing maternal exposure or outcome', sep=""), size=3) + 
