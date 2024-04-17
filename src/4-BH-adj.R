@@ -46,3 +46,8 @@ saveRDS(full_adj_res %>% filter(H==1) %>% select(-H), here("results/adjusted/H1_
 saveRDS(full_adj_res %>% filter(H==2) %>% select(-H), here("results/adjusted/H2_adj_res.RDS"))
 saveRDS(full_adj_res %>% filter(H==3) %>% select(-H), here("results/adjusted/H3_adj_res.RDS"))
 saveRDS(full_adj_res %>% filter(H==4) %>% select(-H), here("results/adjusted/H4_adj_res.RDS"))
+
+
+#save full datasets for plotting
+saveRDS(full_adj_res, here("results/adjusted/adj_res.RDS"))
+
